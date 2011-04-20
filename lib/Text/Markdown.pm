@@ -393,7 +393,7 @@ sub _HashHTMLBlocks {
                         # interpret markdown and reconstruct $tag to include the interpreted $text_in_tag
                         my $wrap_in_p_tags = $opening_tag =~ /^<(div|iframe)/;
                         $tag = $prefix . $opening_tag . "\n"
-                          . $self->_RunBlockGamut($text_in_tag, {wrap_in_p_tags => $wrap_in_p_tags})
+                          . $self->_RunBlockGamut($text_in_tag, {wrap_in_p_tags => $wrap_in_p_tags,interpret_markdown_on_attribute => 1})
                           . "\n" . $closing_tag
                         ;
                     } else {
@@ -537,7 +537,7 @@ sub _RunBlockGamut {
     # was to escape raw HTML in the original Markdown source. This time,
     # we're escaping the markup we've just created, so that we don't wrap
     # <p> tags around block-level tags.
-    $text = $self->_HashHTMLBlocks($text);
+    $text = $self->_HashHTMLBlocks($text,$options);
 
     # Special case just for <hr />. It was easier to make a special case than
     # to make the other regex more complicated.
