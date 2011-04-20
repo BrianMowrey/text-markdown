@@ -232,10 +232,10 @@ sub _Markdown {
 
     $text = $self->_CleanUpDoc($text);
 
+    $text = $self->_StripLinkDefinitions($text);
+    
     # Turn block-level HTML elements into hash entries, and interpret markdown in them if they have a 'markdown="1"' attribute
     $text = $self->_HashHTMLBlocks($text, {interpret_markdown_on_attribute => 1});
-
-    $text = $self->_StripLinkDefinitions($text);
 
     $text = $self->_RunBlockGamut($text, {wrap_in_p_tags => 1});
 
